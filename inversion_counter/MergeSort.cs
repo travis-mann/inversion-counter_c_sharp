@@ -109,7 +109,6 @@ namespace InversionCounter
             {
                 array2 = new int[splitNum + 1];
             }
-            Console.WriteLine($"array2.Length {array2.Length}");
 
             // slice
             Array.Copy(arrayToSplit, 0, array1, 0, array1.Length);

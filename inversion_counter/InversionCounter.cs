@@ -2,27 +2,30 @@
 //FileName    : InversionCounter.cs
 //Author      : Travis Mann
 //Date        : 01/13/2023
-//Description : Script for counting the number of inversions in an array of integers.
+//Description : Divide and conquer algorithm for counting the number of inversions in an array of
+//              integers.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // --- imports ---
-using System;
 using System.Numerics;
 
 
 // --- classes ---
 namespace InversionCounter
 {
-    public class program
+    public class CountInversions
     {
-        public static void Main()
+        public static BigInteger Run(int[] array)
         {
-            // todo, extract array list from CSV and count inversions
-        }
+            /// <summary>Divide and conquer algorithm for counting inversions 
+            ///          in a given integer array with no repeats</summary>
+            /// <param name="array">array to count inversions from</param>
+            /// <returns>Count of inversions in the given array</returns>
 
-        public static int CountInversions(int[] array)
-        {
+            // announce start
+            //Console.WriteLine($"Counting inversions in {array.Length} element array");
+
             // step 1: check base case
             if (array.Length == 1)
             {
@@ -32,24 +35,35 @@ namespace InversionCounter
             int[][] splitArrays = MergeSort.SplitArray(array);
 
             // step 3: count left and right inversions
-            int leftInversionCount = CountInversions(splitArrays[0]);
-            int rightInversionCount = CountInversions(splitArrays[1]);
+            BigInteger leftInversionCount = CountInversions.Run(splitArrays[0]);
+            BigInteger rightInversionCount = CountInversions.Run(splitArrays[1]);
 
             // step 4: count split inversions (inversions between 2 halves)
-            int splitInversionCount = CountSplitInversions(splitArrays[0], splitArrays[1]);
+            BigInteger splitInversionCount = CountSplitInversions(splitArrays[0], splitArrays[1]);
 
             // step 5: total inversion counts
-            return leftInversionCount + rightInversionCount + splitInversionCount;
+            BigInteger totalInversions = leftInversionCount + rightInversionCount + splitInversionCount;
+            BigInteger maxInversions = (new BigInteger (array.Length - 1) * array.Length) / 2;
+            if (totalInversions > maxInversions)
+            {
+                throw new ArgumentOutOfRangeException($"total inversions ({totalInversions}) exceeded maximum possible inversions {maxInversions}");
+            }
+            return totalInversions;
         }
 
-        public static int CountSplitInversions(int[] array1, int[] array2)
+        public static BigInteger CountSplitInversions(int[] array1, int[] array2)
         {
+            /// <summary>Counts inversions across 2 split arrays</summary>
+            /// <param name="array1">1st array to analyze</param>
+            /// <param name="array2">2nd array to analyze</param>
+            /// <returns>Count of inversions between the given arrays</returns>
+
             // step 1: sort input arrays, O(nlogn)
             int[] sortedArray1 = MergeSort.Run(array1);
             int[] sortedArray2 = MergeSort.Run(array2);
 
             // step 2: initialize final count
-            int splitInversionCount = 0;
+            BigInteger splitInversionCount = 0;
 
             // step 3: iterate over sorted arrays with pointers
             int arrayIndex1 = 0;

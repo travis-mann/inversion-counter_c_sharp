@@ -21,11 +21,11 @@ namespace InversionCounter.Tests
         public void RunTest()
         {
             // step 1: Arrange
-            int[] array = { 1, 5, 9, 3, 44 };
-            int expected = 2;
+            int[] array = { 1, 5, 9, 44, 3 };
+            int expected = 3;
 
             // step 2: Act
-            int actual = program.CountInversions(array);
+            BigInteger actual = CountInversions.Run(array);
 
             // step 3: Assert
             Assert.Equal(expected, actual);
@@ -40,7 +40,7 @@ namespace InversionCounter.Tests
             int expected = 3;
 
             // step 2: Act
-            int actual = program.CountSplitInversions(array1, array2);
+            BigInteger actual = CountInversions.CountSplitInversions(array1, array2);
 
             // step 3: Assert
             Assert.Equal(expected, actual);
