@@ -18,7 +18,7 @@ namespace InversionCounter
     {
         public static void Main()
         {
-            // todo
+            // todo, extract array list from CSV and count inversions
         }
 
         public static int CountInversions(int[] array)
@@ -28,72 +28,54 @@ namespace InversionCounter
             {
                 return 0;  // 0 inversions in an array of length 1 
             }
-
             // step 2: split array in half
-            int[][] splitArrays = SplitArray(array);
+            int[][] splitArrays = MergeSort.SplitArray(array);
 
             // step 3: count left and right inversions
             int leftInversionCount = CountInversions(splitArrays[0]);
-            int rightInversionCount = CountInversions(splitArrays[0]);
+            int rightInversionCount = CountInversions(splitArrays[1]);
 
             // step 4: count split inversions (inversions between 2 halves)
             int splitInversionCount = CountSplitInversions(splitArrays[0], splitArrays[1]);
 
-            // test - todo
+            // step 5: total inversion counts
             return leftInversionCount + rightInversionCount + splitInversionCount;
         }
 
         public static int CountSplitInversions(int[] array1, int[] array2)
         {
-            // todo
-            return 0;
-        }
+            // step 1: sort input arrays, O(nlogn)
+            int[] sortedArray1 = MergeSort.Run(array1);
+            int[] sortedArray2 = MergeSort.Run(array2);
 
-        public static int[][] SplitArray(int[] arrayToSplit)
-        {
-            /// <summary>
-            /// Splits a given array into 2 arrays roughly in the center
-            /// </summary>
-            /// <param name="arrayToSplit">Single array to split in 2</param>
-            /// <returns>
-            /// <param name="splitArrays">Array of 2 arrays which together form the original array</param>
-            /// </returns>
+            // step 2: initialize final count
+            int splitInversionCount = 0;
 
-            // init vars
-            int splitNum = arrayToSplit.Length / 2;
-            int[] array1 = new int[splitNum];
-
-            // add extra element to array 2 if arrayToSplit.Length is odd
-            int[] array2;
-            if (arrayToSplit.Length % 2 == 0)
+            // step 3: iterate over sorted arrays with pointers
+            int arrayIndex1 = 0;
+            int arrayIndex2 = 0;
+            for (int mergedArrayIndex = 0; mergedArrayIndex < sortedArray1.Length + sortedArray2.Length; mergedArrayIndex++)
             {
-                array2 = new int[splitNum];
+                // step 3.1: compare next element in each array
+                // 1st branch taken if 1. array 2 is out of elements or
+                // 2. array 1 has elements and next array 1 element less than next array 2 element
+                if (arrayIndex2 >= sortedArray2.Length || (arrayIndex1 < sortedArray1.Length && sortedArray1[arrayIndex1] < sortedArray2[arrayIndex2]))
+                {
+                    // inc index for array 1
+                    arrayIndex1++;
+                }
+                else  // next array 2 element is smaller
+                {
+                    // calculate split inversion count (total array 1 indicies - current array 1 index
+                    splitInversionCount += sortedArray1.Length - arrayIndex1;
+
+                    // inc index for array 2
+                    arrayIndex2++;
+                }
             }
-            else  // arrayToSplit.Length is odd
-            {
-                array2 = new int[splitNum + 1];
-            }
-            Console.WriteLine($"array2.Length {array2.Length}");
-            
-            // slice
-            Array.Copy(arrayToSplit, 0, array1, 0, array1.Length);
-            Array.Copy(arrayToSplit, array1.Length, array2, 0, array2.Length);
 
-            // package and return
-            return new int[][] {array1, array2};
-        }
-
-        public static int[] SortArray(int[] arrayToSplit)
-        {
-            /// <summary>
-            /// Splits a given array into 2 arrays roughly in the center
-            /// </summary>
-            /// <param name="arrayToSplit">Single array to split in 2</param>
-            /// <returns>
-            /// <param name="splitArrays">Array of 2 arrays which together form the original array</param>
-            /// </returns>
-
-            // todo
+            // step 4: return final count
+            return splitInversionCount;
         }
     }
 }

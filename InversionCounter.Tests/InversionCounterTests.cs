@@ -22,27 +22,29 @@ namespace InversionCounter.Tests
         {
             // step 1: Arrange
             int[] array = { 1, 5, 9, 3, 44 };
-            int expected = 0;
+            int expected = 2;
 
             // step 2: Act
             int actual = program.CountInversions(array);
 
-            // step 4: Assert
+            // step 3: Assert
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void SplitArraysTest()
+        public void CountSplitInversionsTest()
         {
             // step 1: Arrange
-            int[] array = { 1, 5, 9, 3, 44 };
-            int[][] expected = { new int[] { 1, 5 }, new int[] { 9, 3, 44 } };
+            int[] array1 = { 2, 3, 4 };
+            int[] array2 = { 1, 5, 6 };
+            int expected = 3;
 
             // step 2: Act
-            int[][] actual = program.SplitArray(array);
+            int actual = program.CountSplitInversions(array1, array2);
 
-            // step 4: Assert
-            Assert.Equal(expected, actual); 
+            // step 3: Assert
+            Assert.Equal(expected, actual);
         }
+
     }
 }
