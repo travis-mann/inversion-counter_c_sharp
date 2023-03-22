@@ -2,8 +2,8 @@
 //FileName    : InversionCounter.cs
 //Author      : Travis Mann
 //Date        : 01/13/2023
-//Description : Script for counting the number of inversions in an array of BigIntegeregers from BigInteger_array.txt
-//              using a divide and conquer paradigm.
+//Description : Script for counting the number of inversions in an array of BigIntegeregers from
+//              int_array.txt using a divide and conquer paradigm.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -16,7 +16,7 @@ namespace InversionCounter
 {
     public class CountInversions
     {
-        public static BigInteger Run(int[] array)
+        public static void Main(string[] args)
         {
             // store start time
             DateTime startTime = DateTime.Now;
