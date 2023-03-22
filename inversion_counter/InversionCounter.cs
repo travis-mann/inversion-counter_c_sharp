@@ -8,16 +8,15 @@
 
 
 // --- imports ---
-using System;
 using System.Numerics;
 
 
 // --- classes ---
 namespace InversionCounter
 {
-    public class program
+    public class CountInversions
     {
-        public static void Main()
+        public static BigInteger Run(int[] array)
         {
             // store start time
             DateTime startTime = DateTime.Now;
@@ -249,6 +248,5 @@ namespace InversionCounter
             // return final inversion count
             return inversionCount;
         }
-
     }
 }
