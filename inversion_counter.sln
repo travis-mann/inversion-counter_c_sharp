@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InversionCounter", "inversion_counter\InversionCounter.csproj", "{B573DE23-9B3A-4C4B-8229-74094CB56A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InversionCounter", "inversion_counter\InversionCounter.csproj", "{B573DE23-9B3A-4C4B-8229-74094CB56A35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InversionCounter.Tests", "InversionCounter.Tests\InversionCounter.Tests.csproj", "{F06A6722-A434-454B-BAA6-9FF89CEFA68F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InversionCounter.Tests", "InversionCounter.Tests\InversionCounter.Tests.csproj", "{F06A6722-A434-454B-BAA6-9FF89CEFA68F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
